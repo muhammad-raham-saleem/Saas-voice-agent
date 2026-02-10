@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from audio_recorder_streamlit import audio_recorder
+import streamlit.components.v1 as components
 from src.rag_engine import RAGEngine
 
 st.set_page_config(
@@ -54,28 +54,6 @@ engine = load_rag_engine()
 
 
 # ── Voice helpers ──────────────────────────────────────────
-def transcribe_audio(audio_bytes: bytes) -> str:
-    """Transcribe audio bytes using Deepgram REST API."""
-    import httpx
-
-    response = httpx.post(
-        "https://api.deepgram.com/v1/listen",
-        params={"model": "nova-3", "smart_format": "true", "language": "en",
-                "detect_language": "false"},
-        headers={
-            "Authorization": f"Token {os.getenv('DEEPGRAM_API_KEY')}",
-        },
-        content=audio_bytes,
-        timeout=30.0,
-    )
-    response.raise_for_status()
-    data = response.json()
-    channels = data.get("results", {}).get("channels", [])
-    if not channels or not channels[0].get("alternatives"):
-        return ""
-    return channels[0]["alternatives"][0]["transcript"].strip()
-
-
 def generate_speech(text: str) -> bytes | None:
     """Generate speech audio bytes using ElevenLabs. Returns MP3 bytes."""
     from elevenlabs.client import ElevenLabs
@@ -91,13 +69,73 @@ def generate_speech(text: str) -> bytes | None:
 
 
 def has_voice_keys() -> bool:
-    """Check if voice API keys are configured."""
-    dg = os.getenv("DEEPGRAM_API_KEY", "")
+    """Check if ElevenLabs API key is configured (for TTS output)."""
     el = os.getenv("ELEVENLABS_API_KEY", "")
-    return bool(dg and dg != "your-key-here" and el and el != "your-key-here")
+    return bool(el and el != "your-key-here")
 
 
 voice_enabled = has_voice_keys()
+
+# Browser speech recognition component (no API key needed)
+SPEECH_RECOGNITION_HTML = """
+<div style="display:flex;align-items:center;gap:10px;margin:8px 0;">
+    <button id="mic-btn" onclick="toggleRecording()" style="
+        background:#1E88E5;color:white;border:none;border-radius:50%;
+        width:48px;height:48px;font-size:20px;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;
+        transition:background 0.2s;">🎙️</button>
+    <span id="mic-status" style="color:#666;font-size:14px;">Click mic to speak</span>
+</div>
+<script>
+let recognition = null;
+let isRecording = false;
+
+function toggleRecording() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        document.getElementById('mic-status').textContent = 'Speech recognition not supported in this browser';
+        return;
+    }
+    if (isRecording) {
+        recognition.stop();
+        return;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = function() {
+        isRecording = true;
+        document.getElementById('mic-btn').style.background = '#e74c3c';
+        document.getElementById('mic-status').textContent = 'Listening...';
+    };
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('mic-status').textContent = '✅ ' + transcript;
+        // Send to Streamlit via query params
+        const url = new URL(window.parent.location);
+        url.searchParams.set('voice_input', transcript);
+        window.parent.history.replaceState({}, '', url);
+        // Trigger Streamlit rerun
+        window.parent.postMessage({type: 'streamlit:setComponentValue', value: transcript}, '*');
+    };
+    recognition.onend = function() {
+        isRecording = false;
+        document.getElementById('mic-btn').style.background = '#1E88E5';
+        if (document.getElementById('mic-status').textContent === 'Listening...') {
+            document.getElementById('mic-status').textContent = 'No speech detected. Try again.';
+        }
+    };
+    recognition.onerror = function(event) {
+        isRecording = false;
+        document.getElementById('mic-btn').style.background = '#1E88E5';
+        document.getElementById('mic-status').textContent = 'Error: ' + event.error;
+    };
+    recognition.start();
+}
+</script>
+"""
 
 
 # ── Header ──────────────────────────────────────────────────
@@ -123,11 +161,8 @@ with st.sidebar:
     st.divider()
 
     # Voice toggle
-    if voice_enabled:
-        st.header("🎙️ Voice Mode")
-        voice_on = st.toggle("Enable voice", value=True)
-    else:
-        voice_on = False
+    st.header("🔊 Voice Mode")
+    voice_on = st.toggle("Enable voice responses", value=voice_enabled)
 
     st.divider()
     st.header("💡 Suggested Questions")
@@ -170,27 +205,21 @@ for msg in st.session_state["messages"]:
         if msg.get("audio"):
             st.audio(msg["audio"], format="audio/mp3")
 
-# ── Voice input ─────────────────────────────────────────────
+# ── Voice input (browser speech recognition) ────────────────
 question = None
 
-if voice_on:
-    st.markdown("**🎙️ Click the mic to record your question:**")
-    audio_bytes = audio_recorder(
-        text="",
-        recording_color="#e74c3c",
-        neutral_color="#1E88E5",
-        icon_size="2x",
-        pause_threshold=2.0,
-    )
-    if audio_bytes and audio_bytes != st.session_state.get("_last_audio"):
-        st.session_state["_last_audio"] = audio_bytes
-        with st.spinner("Transcribing..."):
-            try:
-                question = transcribe_audio(audio_bytes)
-                if question:
-                    st.success(f'🗣️ "{question}"')
-            except Exception as e:
-                st.error(f"Transcription failed: {e}")
+# Check for voice input from URL query params
+voice_params = st.query_params
+voice_input = voice_params.get("voice_input", "")
+if voice_input and voice_input != st.session_state.get("_last_voice", ""):
+    st.session_state["_last_voice"] = voice_input
+    question = voice_input
+    # Clear the query param
+    st.query_params.clear()
+
+# Show mic button
+st.markdown("**🎙️ Speak or type your question:**")
+components.html(SPEECH_RECOGNITION_HTML, height=60)
 
 # ── Text input + pending questions ──────────────────────────
 pending = st.session_state.pop("pending_question", None)
@@ -226,7 +255,7 @@ if question:
 
         # Generate and play voice response
         audio_data = None
-        if voice_on:
+        if voice_on and voice_enabled:
             try:
                 with st.spinner("Generating voice response..."):
                     audio_data = generate_speech(result["answer"])
