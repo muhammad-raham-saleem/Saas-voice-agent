@@ -60,35 +60,34 @@ def transcribe_audio(audio_bytes: bytes) -> str:
 
     response = httpx.post(
         "https://api.deepgram.com/v1/listen",
-        params={"model": "nova-3", "smart_format": "true", "language": "en"},
+        params={"model": "nova-3", "smart_format": "true", "language": "en",
+                "detect_language": "false"},
         headers={
             "Authorization": f"Token {os.getenv('DEEPGRAM_API_KEY')}",
-            "Content-Type": "audio/wav",
         },
         content=audio_bytes,
         timeout=30.0,
     )
     response.raise_for_status()
     data = response.json()
-    return data["results"]["channels"][0]["alternatives"][0]["transcript"].strip()
+    channels = data.get("results", {}).get("channels", [])
+    if not channels or not channels[0].get("alternatives"):
+        return ""
+    return channels[0]["alternatives"][0]["transcript"].strip()
 
 
 def generate_speech(text: str) -> bytes | None:
     """Generate speech audio bytes using ElevenLabs. Returns MP3 bytes."""
-    try:
-        from elevenlabs.client import ElevenLabs
+    from elevenlabs.client import ElevenLabs
 
-        client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
-        audio = client.text_to_speech.convert(
-            text=text,
-            voice_id="21m00Tcm4TlvDq8ikWAM",  # Rachel
-            model_id="eleven_flash_v2_5",
-            output_format="mp3_44100_128",
-        )
-        # audio is an iterator — collect into bytes
-        return b"".join(audio)
-    except Exception:
-        return None
+    client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
+    audio = client.text_to_speech.convert(
+        text=text,
+        voice_id="21m00Tcm4TlvDq8ikWAM",  # Rachel
+        model_id="eleven_flash_v2_5",
+        output_format="mp3_44100_128",
+    )
+    return b"".join(audio)
 
 
 def has_voice_keys() -> bool:
@@ -228,10 +227,13 @@ if question:
         # Generate and play voice response
         audio_data = None
         if voice_on:
-            with st.spinner("Generating voice response..."):
-                audio_data = generate_speech(result["answer"])
-            if audio_data:
-                st.audio(audio_data, format="audio/mp3", autoplay=True)
+            try:
+                with st.spinner("Generating voice response..."):
+                    audio_data = generate_speech(result["answer"])
+                if audio_data:
+                    st.audio(audio_data, format="audio/mp3", autoplay=True)
+            except Exception as e:
+                st.warning(f"Voice generation failed: {e}")
 
     # Save assistant message
     st.session_state["messages"].append({
