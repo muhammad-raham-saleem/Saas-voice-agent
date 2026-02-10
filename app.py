@@ -153,10 +153,12 @@ audio_bytes = audio_recorder(
     recording_color="#e74c3c",
     neutral_color="#1E88E5",
     icon_size="2x",
-    pause_threshold=2.0,
+    pause_threshold=2.5,
+    sample_rate=44100,
 )
 
-if audio_bytes and audio_bytes != st.session_state.get("_last_audio"):
+# Minimum ~5KB to filter out empty clicks (0.1s of audio at 44.1kHz is ~8KB)
+if audio_bytes and len(audio_bytes) > 5000 and audio_bytes != st.session_state.get("_last_audio"):
     st.session_state["_last_audio"] = audio_bytes
     with st.spinner("Transcribing with Whisper..."):
         try:
