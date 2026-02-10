@@ -1,0 +1,96 @@
+TechFlow Troubleshooting Guide
+================================
+
+Login & Authentication Issues
+-----------------------------
+FORGOT PASSWORD:
+To reset your password, click "Forgot Password" on the login page. Enter the email address associated with your TechFlow account. You will receive a password reset link within 2 minutes. The link expires after 24 hours. If you don't receive the email, check your spam/junk folder. Make sure you're using the email address you registered with. If you still can't find the email, contact support@techflow.io for manual password reset assistance.
+
+PASSWORD REQUIREMENTS:
+Passwords must be at least 12 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*). Passwords cannot contain your email address or common words. You cannot reuse any of your last 5 passwords.
+
+ACCOUNT LOCKED:
+Your account is automatically locked after 5 consecutive failed login attempts. The lock lasts for 30 minutes. After 30 minutes, you can try logging in again. If you need immediate access, use the "Forgot Password" flow to reset your password, which also unlocks your account. If your account has been locked by an administrator, contact your team admin or support@techflow.io.
+
+TWO-FACTOR AUTHENTICATION (2FA) ISSUES:
+If you've lost access to your 2FA device, use one of your backup codes to log in. Backup codes were provided when you enabled 2FA. Each backup code can only be used once. If you've used all backup codes and lost your 2FA device, contact support@techflow.io with your account email and a government-issued photo ID for identity verification. 2FA recovery typically takes 1-2 business days.
+
+SSO LOGIN ISSUES:
+If SSO login fails, verify that your company's identity provider (IdP) is configured correctly. Common issues include expired SAML certificates, incorrect Assertion Consumer Service (ACS) URL, or clock skew between servers. Contact your IT administrator to check the IdP configuration. If the issue persists, contact TechFlow support with your organization ID and error message.
+
+Performance & Speed Issues
+--------------------------
+SLOW LOADING:
+If TechFlow is loading slowly, try the following steps:
+1. Clear your browser cache and cookies for techflow.io
+2. Disable browser extensions (especially ad blockers) that may interfere
+3. Check your internet connection speed (minimum 5 Mbps recommended)
+4. Try a different browser (we recommend Chrome, Firefox, or Edge, latest versions)
+5. If on VPN, try disconnecting to rule out VPN-related latency
+6. Check our status page at status.techflow.io for any ongoing incidents
+
+BROWSER COMPATIBILITY:
+TechFlow supports the latest two versions of Chrome, Firefox, Edge, and Safari. Internet Explorer is not supported. If you experience issues, ensure your browser is up to date.
+
+LARGE BOARDS:
+Boards with more than 500 cards may experience slower performance. We recommend archiving completed cards regularly. Use filters to limit visible cards. Consider splitting large boards into multiple boards organized by sprint, quarter, or team.
+
+Data Sync Issues
+----------------
+TASKS NOT SYNCING:
+If tasks are not appearing or updating across devices:
+1. Check your internet connection
+2. Click the sync icon in the top-right corner to force a manual sync
+3. Log out and log back in to refresh your session
+4. Clear browser cache and reload the page
+5. Check if the issue affects all projects or just one specific project
+6. Verify you have the correct permissions to view the project
+
+If tasks created on mobile are not appearing on desktop (or vice versa), ensure both devices are running the latest version of TechFlow. Mobile app users should check for pending app updates in the App Store or Google Play Store.
+
+INTEGRATION SYNC ISSUES:
+If data is not syncing with integrated services (Slack, GitHub, etc.):
+1. Go to Settings > Integrations and check the connection status
+2. If the status shows "Disconnected," click "Reconnect" and re-authorize
+3. Check that the integration has the necessary permissions
+4. For GitHub integration, ensure the repository webhook is active
+5. Check if there's a sync delay (integrations sync within 2 minutes under normal conditions)
+6. Review integration logs in Settings > Integrations > [Service] > Logs
+
+FILE UPLOAD ISSUES:
+If file uploads fail or files are missing:
+- Maximum file size is 50MB per file (100MB for Enterprise plans)
+- Supported formats: All common formats (PDF, DOC, XLS, PNG, JPG, MP4, etc.)
+- Maximum 20 files per upload batch
+- Check your storage quota in Settings > Storage
+- If upload fails mid-way, the system automatically retries 3 times
+- For large files, ensure a stable internet connection
+
+Notification Issues
+-------------------
+NOT RECEIVING NOTIFICATIONS:
+1. Check notification settings in Settings > Notifications
+2. Verify email notifications are enabled for the relevant events
+3. Check your email spam/junk folder
+4. For Slack notifications, ensure the TechFlow app is installed in your Slack workspace
+5. For mobile push notifications, ensure notifications are enabled in your device settings for the TechFlow app
+6. Check if you have set "Do Not Disturb" hours in your notification preferences
+
+Export & Import Issues
+----------------------
+If data export fails or is incomplete:
+- Exports are processed in the background and may take up to 10 minutes for large projects
+- You'll receive an email with a download link when the export is ready
+- Export links expire after 7 days
+- Supported export formats: CSV, JSON, PDF
+- If import fails, verify your CSV file matches the TechFlow import template (downloadable from Settings > Import)
+- Maximum import size is 10,000 rows per file
+
+Contact Support
+---------------
+If your issue is not resolved by this guide, contact TechFlow support:
+- Email: support@techflow.io (all plans)
+- Live chat: Available in-app for Pro and Enterprise plans (Mon-Fri, 9AM-6PM EST)
+- Phone: +1-888-TECHFLOW (Enterprise plans, 24/7)
+- Community forum: community.techflow.io (all plans)
+Include your account email, browser/device info, and screenshots when contacting support.

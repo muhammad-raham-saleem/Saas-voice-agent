@@ -1,0 +1,100 @@
+TechFlow Company Policies
+===========================
+
+Data Privacy Policy
+-------------------
+TechFlow is committed to protecting your data and privacy. We comply with GDPR (General Data Protection Regulation), CCPA (California Consumer Privacy Act), and other applicable data protection laws.
+
+DATA COLLECTION:
+We collect only the data necessary to provide our services. This includes:
+- Account information: name, email address, company name, billing address
+- Usage data: login times, features used, pages visited (anonymized analytics)
+- Content data: tasks, projects, comments, and files you create within TechFlow
+- Payment information: processed and stored securely by Stripe (we never store full credit card numbers)
+
+DATA STORAGE:
+All customer data is stored on Amazon Web Services (AWS) infrastructure in the US-East-1 (Virginia) region by default. Enterprise customers can choose from additional regions: EU-West-1 (Ireland), AP-Southeast-1 (Singapore), or US-West-2 (Oregon). Data is encrypted at rest using AES-256 encryption and in transit using TLS 1.3. Database backups are performed every 6 hours and retained for 30 days.
+
+DATA RETENTION:
+Active account data is retained for the duration of your subscription. When you delete a task, project, or file, it is moved to trash and permanently deleted after 30 days. When you cancel your account, all your data is permanently deleted within 90 days. You can request immediate data deletion by contacting privacy@techflow.io. We retain anonymized usage analytics for up to 2 years for product improvement purposes.
+
+DATA ACCESS:
+TechFlow employees access customer data only when necessary to provide support (with your explicit permission) or to comply with legal obligations. All data access by employees is logged and audited. We conduct annual third-party security audits. We will never sell your data to third parties. Data is shared with third-party processors only as necessary to provide our services (e.g., email delivery, payment processing) and these processors are bound by data processing agreements.
+
+DATA PORTABILITY:
+You can export all your data at any time using the export feature in Settings > Account > Export Data. Exports include all tasks, projects, comments, time entries, and attachments in JSON and CSV formats. Enterprise customers can use the API for bulk data export.
+
+YOUR RIGHTS:
+Under GDPR and CCPA, you have the right to:
+- Access your personal data
+- Correct inaccurate data
+- Delete your data ("right to be forgotten")
+- Export your data (data portability)
+- Object to data processing
+- Restrict data processing
+To exercise any of these rights, contact privacy@techflow.io.
+
+Service Level Agreement (SLA)
+-----------------------------
+TechFlow provides the following uptime guarantees:
+
+FREE PLAN: No SLA. Best-effort availability.
+
+PRO PLAN: 99.9% monthly uptime guarantee.
+- Uptime is measured as the percentage of minutes in a calendar month that the TechFlow application is available.
+- Scheduled maintenance windows (announced 48 hours in advance) are excluded from uptime calculations.
+- If uptime falls below 99.9% in a calendar month, Pro customers receive service credits:
+  - 99.0% - 99.9%: 10% credit on monthly fee
+  - 95.0% - 99.0%: 25% credit on monthly fee
+  - Below 95.0%: 50% credit on monthly fee
+- Service credits are applied to the next billing cycle and do not exceed 50% of the monthly fee.
+- To claim service credits, submit a request within 30 days of the incident.
+
+ENTERPRISE PLAN: 99.99% monthly uptime guarantee with custom SLA terms.
+- Dedicated infrastructure ensures higher availability.
+- Custom penalty clauses and compensation terms available.
+- 24/7 incident response with 15-minute acknowledgment time.
+- Dedicated status page with real-time monitoring.
+
+PLANNED MAINTENANCE:
+Maintenance windows are scheduled during low-usage periods (Sundays, 2AM-6AM EST). Customers are notified at least 48 hours in advance via email and in-app notification. Emergency maintenance may be performed without advance notice in case of critical security vulnerabilities.
+
+INCIDENT RESPONSE:
+When an incident occurs:
+1. We acknowledge the issue within 15 minutes (Enterprise) or 1 hour (Pro)
+2. We provide status updates every 30 minutes during active incidents
+3. We publish a Root Cause Analysis (RCA) within 5 business days after resolution
+4. All incidents and RCAs are posted on status.techflow.io
+
+Refund Policy
+-------------
+TechFlow offers a 30-day money-back guarantee for first-time subscribers to paid plans. To request a refund, contact support@techflow.io within 30 days of your initial payment with the subject line "Refund Request" and include your account email and reason for cancellation. Refunds are processed within 5-10 business days to the original payment method. After the 30-day period, no refunds are issued for monthly plans. Annual plan customers may cancel at any time, but service continues until the end of the prepaid period with no partial refund. Enterprise customers should refer to their individual contract terms for refund and cancellation policies.
+
+Acceptable Use Policy
+---------------------
+You agree not to use TechFlow to:
+- Store or transmit illegal, harmful, or objectionable content
+- Violate any applicable laws or regulations
+- Infringe on intellectual property rights
+- Transmit malware, viruses, or malicious code
+- Attempt to gain unauthorized access to TechFlow systems or other users' accounts
+- Use the API to build a competing product
+- Exceed reasonable usage limits (e.g., automated bulk operations that degrade service)
+Violation of this policy may result in account suspension or termination.
+
+Account Termination
+-------------------
+You may cancel your TechFlow account at any time in Settings > Account > Cancel Account. Upon cancellation, your subscription is not renewed at the end of the current billing cycle. Your data remains accessible until the end of the billing period. After the billing period ends, your data is scheduled for permanent deletion within 90 days. You can reactivate your account within 90 days by contacting support@techflow.io.
+
+TechFlow reserves the right to suspend or terminate accounts that violate our Acceptable Use Policy, fail to pay for 30+ days, or engage in fraudulent activity. We will notify you via email before taking action except in cases of severe violations that threaten the security of our platform or other users.
+
+Contact Information
+-------------------
+For policy-related inquiries:
+- Privacy: privacy@techflow.io
+- Legal: legal@techflow.io
+- Security: security@techflow.io
+- General support: support@techflow.io
+- Mailing address: TechFlow Inc., 1234 Innovation Drive, Suite 500, San Francisco, CA 94105
+
+Last updated: January 2025

@@ -1,0 +1,42 @@
+TechFlow Product Features Guide
+================================
+
+Overview
+--------
+TechFlow is a comprehensive project management platform designed for modern teams. Whether you're a startup or an enterprise, TechFlow provides the tools you need to plan, track, and deliver projects on time. Our platform supports Agile, Scrum, Kanban, and Waterfall methodologies out of the box.
+
+Kanban Boards
+-------------
+TechFlow's Kanban boards give your team a visual workflow management system. You can create unlimited boards with customizable columns such as To Do, In Progress, Review, and Done. Each card supports rich text descriptions, file attachments (up to 50MB per file), checklists, due dates, priority labels (Critical, High, Medium, Low), and custom tags. Cards can be assigned to one or more team members. You can drag and drop cards between columns and set WIP (Work In Progress) limits on any column to prevent bottlenecks. Kanban boards also support swimlanes, allowing you to group tasks by team member, priority, or any custom field. Board templates are available for software development, marketing campaigns, HR onboarding, and more.
+
+Time Tracking
+-------------
+Built-in time tracking lets team members log hours directly on tasks. You can start and stop a timer with a single click or manually enter time entries. TechFlow generates detailed time reports broken down by project, team member, date range, and task category. Time tracking integrates with our billing module, so you can easily generate invoices for client-facing projects. Weekly timesheet views allow managers to review and approve hours. Time tracking supports rounding rules (nearest 15 minutes, 30 minutes, or exact). Export time reports in CSV, PDF, or Excel format. The time tracking dashboard shows trends, averages, and utilization rates across your team.
+
+Team Collaboration
+------------------
+TechFlow includes powerful collaboration features to keep your team connected. Real-time comments and @mentions notify team members instantly via in-app notifications, email, or Slack. Threaded discussions keep conversations organized within each task. Shared document editing allows multiple team members to work on project documents simultaneously with version history and change tracking. Team dashboards show activity feeds, upcoming deadlines, and workload distribution. You can create team channels for project-specific communication. File sharing supports drag-and-drop uploads with automatic virus scanning. Guest access allows external collaborators to view and comment on specific projects without full account access.
+
+Integrations
+------------
+TechFlow integrates with over 150 popular tools and services. Key integrations include:
+- Slack: Two-way sync for notifications, create tasks from Slack messages, update task status from Slack
+- GitHub/GitLab: Link commits and pull requests to tasks, automatic status updates when PRs are merged
+- Google Workspace: Sync with Google Calendar, attach Google Drive files, import from Google Sheets
+- Microsoft 365: Outlook calendar sync, OneDrive file attachments, Teams notifications
+- Jira: Two-way sync for teams migrating from Jira, automatic field mapping
+- Zapier: Connect TechFlow to 3000+ apps with no-code automation
+- REST API: Full API access for custom integrations (see API documentation)
+Webhooks are available on Pro and Enterprise plans for real-time event notifications.
+
+Reporting & Analytics
+---------------------
+TechFlow provides comprehensive reporting and analytics. Built-in reports include burndown charts, velocity tracking, cumulative flow diagrams, team workload distribution, and project health scorecards. Custom report builder allows you to create reports with drag-and-drop fields, filters, and visualizations. Schedule automated reports to be delivered via email on a daily, weekly, or monthly basis. Dashboard widgets can be customized and shared across the team. Export reports in PDF, CSV, or PNG format. Enterprise plans include advanced analytics with predictive project completion dates and resource optimization recommendations.
+
+Mobile App
+----------
+TechFlow is available on iOS and Android. The mobile app supports full task management, time tracking, push notifications, offline mode with automatic sync, and camera integration for attaching photos to tasks. Biometric authentication (fingerprint and face recognition) keeps your data secure on mobile devices.
+
+Security Features
+-----------------
+All data is encrypted at rest (AES-256) and in transit (TLS 1.3). TechFlow supports Single Sign-On (SSO) via SAML 2.0 and OAuth 2.0, two-factor authentication (2FA), IP allowlisting, and audit logs. We are SOC 2 Type II certified, GDPR compliant, and HIPAA compliant on Enterprise plans. Role-based access control (RBAC) allows administrators to define granular permissions for team members.

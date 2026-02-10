@@ -1,0 +1,87 @@
+TechFlow Billing & Pricing Guide
+==================================
+
+Pricing Plans
+-------------
+TechFlow offers three pricing tiers designed to fit teams of any size:
+
+FREE PLAN ($0/month):
+- Up to 5 team members
+- 3 projects maximum
+- Basic Kanban boards (up to 5 columns per board)
+- 500MB file storage
+- Community support (forum access only)
+- Basic reporting (pre-built reports only)
+- 7-day activity history
+- No integrations except email notifications
+- No time tracking
+- No API access
+
+PRO PLAN ($12/user/month billed annually, $15/user/month billed monthly):
+- Unlimited team members
+- Unlimited projects
+- Advanced Kanban boards with swimlanes and WIP limits
+- 50GB file storage per team
+- Priority email support (response within 4 business hours)
+- Time tracking with reports and invoicing
+- Custom fields and tags
+- All integrations including Slack, GitHub, and Google Workspace
+- Webhooks
+- API access (1,000 requests/hour)
+- 1-year activity history
+- Custom report builder
+- Guest access (up to 10 guests)
+- Automations (up to 50 rules)
+
+ENTERPRISE PLAN (Custom pricing, contact sales):
+- Everything in Pro, plus:
+- Unlimited file storage
+- Dedicated account manager
+- 24/7 phone and chat support (response within 1 hour)
+- Single Sign-On (SSO) via SAML 2.0
+- Advanced security features (IP allowlisting, audit logs, HIPAA compliance)
+- Custom integrations and onboarding
+- API access (10,000 requests/hour)
+- Unlimited activity history
+- Advanced analytics with AI-powered insights
+- Unlimited guest access
+- Unlimited automations
+- Custom SLA agreements
+- On-premise deployment option
+- Dedicated infrastructure
+
+Free Trial
+----------
+All new accounts start with a 14-day free trial of the Pro plan. No credit card is required to start the trial. During the trial, you have full access to all Pro features. At the end of the trial, you can choose to subscribe to the Pro plan, upgrade to Enterprise, or downgrade to the Free plan. Your data is preserved regardless of which plan you choose. If you downgrade to Free and exceed the Free plan limits, your existing data is retained but you cannot create new projects or add team members until you are within the limits.
+
+Payment Methods
+---------------
+TechFlow accepts the following payment methods:
+- Credit cards: Visa, Mastercard, American Express, Discover
+- Debit cards with Visa or Mastercard logo
+- ACH bank transfers (US only, annual plans only)
+- Wire transfers (Enterprise plans only, minimum annual commitment)
+- PayPal (monthly and annual plans)
+All payments are processed securely through Stripe. We do not store credit card numbers on our servers.
+
+Billing Cycle
+-------------
+Monthly plans are billed on the same date each month (based on your signup date). Annual plans are billed once per year. When you add new team members mid-cycle, you are charged a prorated amount for the remainder of the current billing period. When you remove team members, the credit is applied to your next invoice. You can switch between monthly and annual billing at any time. Switching to annual billing takes effect at the start of your next billing cycle and applies the annual discount.
+
+Invoices & Receipts
+--------------------
+Invoices are generated automatically and sent to the billing email on file. You can access all past invoices in Settings > Billing > Invoice History. Invoices include a breakdown of charges by user and any prorated adjustments. You can update your billing email and add additional invoice recipients in billing settings. All invoices are available in PDF format.
+
+Refund Policy
+-------------
+TechFlow offers a 30-day money-back guarantee for first-time subscribers. If you are not satisfied with TechFlow within the first 30 days of your initial paid subscription, contact our support team for a full refund. After the 30-day period, refunds are not available for monthly plans. For annual plans, you may cancel at any time, and your access continues until the end of the current billing year, but no partial refunds are issued. Refunds are processed within 5-10 business days and returned to the original payment method.
+
+Common Billing Issues
+---------------------
+PAYMENT FAILED: If your payment fails, we will retry the charge three times over 7 days. You will receive email notifications for each failed attempt. If payment is not resolved within 7 days, your account is downgraded to the Free plan. To resolve, update your payment method in Settings > Billing > Payment Method.
+
+DUPLICATE CHARGES: If you see duplicate charges, please contact support@techflow.io with your invoice numbers. We will investigate and issue a refund for any duplicate charges within 3 business days.
+
+UPGRADING/DOWNGRADING: You can change your plan at any time in Settings > Billing > Change Plan. Upgrades take effect immediately with prorated billing. Downgrades take effect at the start of your next billing cycle.
+
+TAX INFORMATION: Prices listed do not include applicable taxes. Sales tax or VAT is calculated based on your billing address and added to your invoice. EU customers can provide a VAT ID to apply reverse charge. Update tax information in Settings > Billing > Tax Info.

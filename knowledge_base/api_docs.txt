@@ -1,0 +1,158 @@
+TechFlow API Documentation
+============================
+
+Overview
+--------
+The TechFlow REST API allows you to programmatically interact with your TechFlow workspace. The API follows RESTful conventions and returns JSON responses. API access is available on Pro and Enterprise plans. The base URL for all API requests is: https://api.techflow.io/v1
+
+Authentication
+--------------
+All API requests require authentication using an API key. You can generate an API key in Settings > API > Generate Key. Include your API key in the request header:
+
+Authorization: Bearer tf_your_api_key_here
+
+API keys are scoped to your user account and inherit your permissions. You can create multiple API keys with different scopes (read-only, read-write, admin). API keys can be revoked at any time in Settings > API > Manage Keys. Never share your API key or commit it to version control. If you suspect your API key has been compromised, revoke it immediately and generate a new one.
+
+Rate Limits
+-----------
+API rate limits vary by plan:
+- Pro plan: 1,000 requests per hour per API key
+- Enterprise plan: 10,000 requests per hour per API key
+Rate limit headers are included in every response:
+- X-RateLimit-Limit: Maximum requests per hour
+- X-RateLimit-Remaining: Requests remaining in current window
+- X-RateLimit-Reset: Unix timestamp when the rate limit resets
+When you exceed the rate limit, the API returns HTTP 429 (Too Many Requests). Implement exponential backoff in your integration to handle rate limiting gracefully. If you need higher rate limits, contact sales@techflow.io.
+
+Endpoints
+---------
+
+TASKS:
+
+GET /api/v1/tasks
+Retrieve a list of tasks. Supports pagination and filtering.
+Query parameters:
+- project_id (required): Filter tasks by project
+- status: Filter by status (open, in_progress, review, done, archived)
+- assignee_id: Filter by assigned user
+- priority: Filter by priority (critical, high, medium, low)
+- page: Page number (default: 1)
+- per_page: Results per page (default: 25, max: 100)
+- sort: Sort field (created_at, updated_at, due_date, priority)
+- order: Sort order (asc, desc)
+Example response:
+{
+  "data": [
+    {
+      "id": "task_abc123",
+      "title": "Implement login page",
+      "description": "Create the user login page with email and password fields",
+      "status": "in_progress",
+      "priority": "high",
+      "assignee_id": "user_xyz789",
+      "project_id": "proj_def456",
+      "due_date": "2025-02-15T00:00:00Z",
+      "created_at": "2025-01-10T14:30:00Z",
+      "updated_at": "2025-01-12T09:15:00Z",
+      "tags": ["frontend", "auth"]
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "per_page": 25,
+    "total": 142,
+    "total_pages": 6
+  }
+}
+
+POST /api/v1/tasks
+Create a new task.
+Request body (JSON):
+- title (required): Task title (max 200 characters)
+- description: Task description (supports Markdown, max 10,000 characters)
+- project_id (required): Project to add the task to
+- status: Initial status (default: "open")
+- priority: Task priority (default: "medium")
+- assignee_id: User ID to assign the task to
+- due_date: Due date in ISO 8601 format
+- tags: Array of tag strings (max 10 tags)
+Returns the created task object with HTTP 201 status.
+
+PUT /api/v1/tasks/{task_id}
+Update an existing task. Send only the fields you want to update.
+Returns the updated task object with HTTP 200 status.
+
+DELETE /api/v1/tasks/{task_id}
+Delete a task. Returns HTTP 204 (No Content) on success.
+Deleted tasks are moved to trash and can be recovered within 30 days.
+
+PROJECTS:
+
+GET /api/v1/projects
+List all projects accessible to the authenticated user.
+Query parameters: page, per_page, sort, order, status (active, archived)
+
+POST /api/v1/projects
+Create a new project.
+Request body: name (required), description, template (kanban, scrum, waterfall)
+
+GET /api/v1/projects/{project_id}
+Get details for a specific project including member list and settings.
+
+USERS:
+
+GET /api/v1/users
+List all users in your workspace. Requires admin permissions.
+
+GET /api/v1/users/me
+Get the authenticated user's profile information.
+
+COMMENTS:
+
+GET /api/v1/tasks/{task_id}/comments
+List all comments on a task.
+
+POST /api/v1/tasks/{task_id}/comments
+Add a comment to a task. Request body: content (required, supports Markdown)
+
+WEBHOOKS:
+
+POST /api/v1/webhooks
+Register a webhook endpoint to receive real-time event notifications.
+Request body: url (required), events (array of event types)
+Supported events: task.created, task.updated, task.deleted, comment.created, project.created, member.added, member.removed
+
+Error Codes
+-----------
+The API uses standard HTTP status codes:
+- 200 OK: Request successful
+- 201 Created: Resource created successfully
+- 204 No Content: Resource deleted successfully
+- 400 Bad Request: Invalid request body or parameters. Check the error message for details.
+- 401 Unauthorized: Missing or invalid API key. Verify your Authorization header.
+- 403 Forbidden: Valid API key but insufficient permissions for the requested action.
+- 404 Not Found: Resource does not exist or you don't have access to it.
+- 409 Conflict: Resource conflict (e.g., duplicate name). Modify the conflicting field and retry.
+- 422 Unprocessable Entity: Request body is valid JSON but contains invalid field values.
+- 429 Too Many Requests: Rate limit exceeded. Wait and retry with exponential backoff.
+- 500 Internal Server Error: Server-side error. Retry after a brief delay. If persistent, contact support.
+- 503 Service Unavailable: API is temporarily unavailable due to maintenance. Check status.techflow.io.
+
+All error responses include a JSON body with:
+{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "You have exceeded the rate limit of 1000 requests per hour",
+    "details": {}
+  }
+}
+
+SDKs & Libraries
+-----------------
+Official SDKs are available for:
+- Python: pip install techflow-sdk
+- JavaScript/Node.js: npm install @techflow/sdk
+- Ruby: gem install techflow
+- Go: go get github.com/techflow/techflow-go
+
+Community-maintained libraries are available for PHP, Java, and C#. See our GitHub organization for all available SDKs.
