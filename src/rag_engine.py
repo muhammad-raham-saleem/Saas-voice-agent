@@ -9,6 +9,7 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_classic.memory import ConversationBufferMemory
+from langchain_classic.prompts import PromptTemplate
 
 load_dotenv()
 
@@ -94,11 +95,31 @@ class RAGEngine:
             search_kwargs={"k": 4},
         )
 
+        qa_prompt = PromptTemplate(
+            input_variables=["context", "question"],
+            template="""You are a friendly and professional customer support agent for TechFlow, a project management software company. Use the following context to answer the customer's question.
+
+Rules:
+- Only answer based on the provided context. Do not make up information.
+- If the context does not contain enough information to answer the question, say: "I don't have information about that in our knowledge base. Please contact our support team at support@techflow.io or call +1-888-TECHFLOW for further assistance."
+- Be concise, helpful, and professional.
+- If the customer seems frustrated, be empathetic.
+- Format your response with bullet points or numbered steps when listing multiple items.
+
+Context:
+{context}
+
+Customer Question: {question}
+
+Answer:"""
+        )
+
         self.chain = ConversationalRetrievalChain.from_llm(
             llm=self.llm,
             retriever=retriever,
             memory=self.memory,
             return_source_documents=True,
+            combine_docs_chain_kwargs={"prompt": qa_prompt},
             verbose=False,
         )
         print("  🔗 Conversational retrieval chain created")

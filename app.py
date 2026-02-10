@@ -101,7 +101,7 @@ with st.sidebar:
 
     # Voice toggle
     st.header("🔊 Voice Mode")
-    voice_on = st.toggle("Enable voice responses", value=voice_enabled)
+    voice_on = st.toggle("Enable voice responses", value=False)
 
     st.divider()
     st.header("💡 Suggested Questions")
