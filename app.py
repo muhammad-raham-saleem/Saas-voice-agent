@@ -1,7 +1,7 @@
 import io
 import os
 import streamlit as st
-from audio_recorder_streamlit import audio_recorder
+from streamlit_mic_recorder import mic_recorder
 from src.rag_engine import RAGEngine
 
 st.set_page_config(
@@ -148,14 +148,13 @@ for msg in st.session_state["messages"]:
 question = None
 
 st.markdown("**🎙️ Click the mic to ask by voice, or type below:**")
-audio_bytes = audio_recorder(
-    text="",
-    recording_color="#e74c3c",
-    neutral_color="#1E88E5",
-    icon_size="2x",
-    pause_threshold=2.5,
-    sample_rate=44100,
+audio = mic_recorder(
+    start_prompt="🎙️ Start recording",
+    stop_prompt="⏹️ Stop recording",
+    just_once=True,
+    key="mic"
 )
+audio_bytes = audio["bytes"] if audio else None
 
 # Minimum ~5KB to filter out empty clicks (0.1s of audio at 44.1kHz is ~8KB)
 if audio_bytes and len(audio_bytes) > 5000 and audio_bytes != st.session_state.get("_last_audio"):
